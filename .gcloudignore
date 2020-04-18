@@ -16,3 +16,4 @@
 .env.dist
 # Python pycache:
 __pycache__/
+LICENSE
