@@ -1,0 +1,290 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+    function submitUrl() {
+        loadChart(document.getElementById('url_field').value);
+    }
+
+    function loadChart(url) {
+        var endpoint = "playlist/?url=" + encodeURIComponent(url);
+        fetch(endpoint)
+        .then((response) => {
+            return response.json();
+        })
+        .then((data) => {
+
+            // BPM
+            var duration_counter = 0;
+            var bpm_data = [];
+            data.tracks.forEach((track) => {
+                bpm_data.push({
+                    x: duration_counter/60.0,
+                    y: track.tempo,
+                    label: track.title + " - " + track.artist,
+                });
+                duration_counter += track.duration;
+            });
+            (new CanvasJS.Chart("chart_bpm", {
+                animationEnabled: true,
+                theme: "light2",
+                title:{
+                    text: "BPM"
+                },
+                axisX:{
+                    title: 'Minutes',
+                    margin: 8,
+                },
+                zoomEnabled:true,
+                data: [{        
+                    type: "line",
+                    dataPoints: bpm_data,
+                }]
+            })).render();
+
+
+            //Duration
+            duration_counter = 0;
+            var duration_data = [];
+            data.tracks.forEach((track) => {
+                duration_data.push({
+                    x: duration_counter/60.0,
+                    y: track.duration,
+                    label: track.title + " - " + track.artist,
+                });
+                duration_counter += track.duration;
+            });
+            (new CanvasJS.Chart("chart_duration", {
+                animationEnabled: true,
+                theme: "light2",
+                title:{
+                    text: "Length in seconds"
+                },
+                zoomEnabled:true,
+                data: [{        
+                    type: "line",
+                    dataPoints: duration_data,
+                }]
+            })).render();
+
+            //Valence
+            duration_counter = 0;
+            var valence_data = [];
+            data.tracks.forEach((track) => {
+                valence_data.push({
+                    x: duration_counter/60.0,
+                    y: track.valence,
+                    label: track.title + " - " + track.artist,
+                });
+                duration_counter += track.duration;
+            });
+            (new CanvasJS.Chart("chart_valence", {
+                animationEnabled: true,
+                theme: "light2",
+                title:{
+                    text: "Valence"
+                },
+                zoomEnabled:true,
+                data: [{        
+                    type: "line",
+                    dataPoints: valence_data,
+                }]
+            })).render();
+
+
+            //Danceability
+            duration_counter = 0;
+            var danceability_data = [];
+            data.tracks.forEach((track) => {
+                danceability_data.push({
+                    x: duration_counter/60.0,
+                    y: track.danceability,
+                    label: track.title + " - " + track.artist,
+                });
+                duration_counter += track.duration;
+            });
+            (new CanvasJS.Chart("chart_danceability", {
+                animationEnabled: true,
+                theme: "light2",
+                title:{
+                    text: "Danceability"
+                },
+                zoomEnabled:true,
+                data: [{        
+                    type: "line",
+                    dataPoints: danceability_data,
+                }]
+            })).render();
+
+            //Energy
+            duration_counter = 0;
+            var energy_data = [];
+            data.tracks.forEach((track) => {
+                energy_data.push({
+                    x: duration_counter/60.0,
+                    y: track.energy,
+                    label: track.title + " - " + track.artist,
+                });
+                duration_counter += track.duration;
+            });
+            (new CanvasJS.Chart("chart_energy", {
+                animationEnabled: true,
+                theme: "light2",
+                title:{
+                    text: "Energy"
+                },
+                zoomEnabled:true,
+                data: [{        
+                    type: "line",
+                    dataPoints: energy_data,
+                }]
+            })).render();
+
+
+            //Loudness
+            duration_counter = 0;
+            var loudness_data = [];
+            data.tracks.forEach((track) => {
+                loudness_data.push({
+                    x: duration_counter/60.0,
+                    y: track.loudness,
+                    label: track.title + " - " + track.artist,
+                });
+                duration_counter += track.duration;
+            });
+            (new CanvasJS.Chart("chart_loudness", {
+                animationEnabled: true,
+                theme: "light2",
+                title:{
+                    text: "Loudness"
+                },
+                zoomEnabled:true,
+                data: [{        
+                    type: "line",
+                    dataPoints: loudness_data,
+                }]
+            })).render();
+
+            //Speechiness
+            duration_counter = 0;
+            var speechiness_data = [];
+            data.tracks.forEach((track) => {
+                speechiness_data.push({
+                    x: duration_counter/60.0,
+                    y: track.speechiness,
+                    label: track.title + " - " + track.artist,
+                });
+                duration_counter += track.duration;
+            });
+            (new CanvasJS.Chart("chart_speechiness", {
+                animationEnabled: true,
+                theme: "light2",
+                title:{
+                    text: "Speechiness"
+                },
+                zoomEnabled:true,
+                data: [{        
+                    type: "line",
+                    dataPoints: speechiness_data,
+                }]
+            })).render();
+
+
+            //Instrumentalness
+            duration_counter = 0;
+            var instrumentalness_data = [];
+            data.tracks.forEach((track) => {
+                instrumentalness_data.push({
+                    x: duration_counter/60.0,
+                    y: track.instrumentalness,
+                    label: track.title + " - " + track.artist,
+                });
+                duration_counter += track.duration;
+            });
+            (new CanvasJS.Chart("chart_instrumentalness", {
+                animationEnabled: true,
+                theme: "light2",
+                title:{
+                    text: "Instrumentalness"
+                },
+                zoomEnabled:true,
+                data: [{        
+                    type: "line",
+                    dataPoints: instrumentalness_data,
+                }]
+            })).render();
+
+//Time Signature
+duration_counter = 0;
+var time_signature_data = [];
+data.tracks.forEach((track) => {
+    time_signature_data.push({
+        x: duration_counter/60.0,
+        y: track.time_signature,
+        label: track.title + " - " + track.artist,
+    });
+    duration_counter += track.duration;
+});
+(new CanvasJS.Chart("chart_time_signature", {
+    animationEnabled: true,
+    theme: "light2",
+    title:{
+        text: "Time Signature"
+    },
+    zoomEnabled:true,
+    data: [{        
+        type: "line",
+        dataPoints: time_signature_data,
+    }]
+})).render();
+
+
+//Key
+duration_counter = 0;
+var key_data = [];
+data.tracks.forEach((track) => {
+    key_data.push({
+        x: duration_counter/60.0,
+        y: track.key,
+        label: track.title + " - " + track.artist,
+    });
+    duration_counter += track.duration;
+});
+(new CanvasJS.Chart("chart_key", {
+    animationEnabled: true,
+    theme: "light2",
+    title:{
+        text: "Key"
+    },
+    zoomEnabled:true,
+    data: [{        
+        type: "line",
+        dataPoints: key_data,
+    }]
+})).render();
+
+            
+        });
+    }
+</script>
+</head>
+<body>
+    Spotify Playlist URL
+    <input id="url_field">
+    <button onclick="submitUrl()">Load</button>
+    <div id="chart_bpm" style="height: 370px; width: 100%;"></div>
+    <div id="chart_duration" style="height: 370px; width: 100%;"></div>
+    <div id="chart_valence" style="height: 370px; width: 100%;"></div>
+    <div id="chart_danceability" style="height: 370px; width: 100%;"></div>
+    <div id="chart_energy" style="height: 370px; width: 100%;"></div>
+    <div id="chart_loudness" style="height: 370px; width: 100%;"></div>
+    <div id="chart_speechiness" style="height: 370px; width: 100%;"></div>
+    <div id="chart_instrumentalness" style="height: 370px; width: 100%;"></div>
+    <div id="chart_time_signature" style="height: 370px; width: 100%;"></div>
+    <div id="chart_key" style="height: 370px; width: 100%;"></div>
+    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+</body>
+</html>
